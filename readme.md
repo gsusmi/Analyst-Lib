@@ -3,3 +3,7 @@ To scrape anchor tags in beer.friscogrille.com and parse data to return list of 
 <pre>
 AnalystLib.process_url('http://beer.friscogrille.com')
 </pre>
+
+----
+TODO:
+- fetch metadata from beer advocate
