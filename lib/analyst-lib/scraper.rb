@@ -1,13 +1,8 @@
 class AnalystLib::Scraper
-  attr_accessor :url, :content
+  attr_accessor :url
 
   def self.scrape_url(url)
     scraper = AnalystLib::Scraper.new(url)
-    scraper.scrape()
-  end
-
-  def self.scrape_url_example()
-    scraper = AnalystLib::Scraper.new('http://beer.friscogrille.com')
     scraper.scrape()
   end
 

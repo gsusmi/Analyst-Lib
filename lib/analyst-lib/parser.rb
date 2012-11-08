@@ -1,13 +1,25 @@
 class AnalystLib::Parser
-  def self.parse(scraped_result)
-    parsed_result = []
+  attr_accessor :raw_data, :href_regex
 
-    scraped_result.each do |result|
-      if(result[:href] && result[:href].match('beer_details'))
-        parsed_result << result.inner_text
+  def self.parse(scraped_result)
+    parser = AnalystLib::Parser.new(scraped_result)
+    parser.parse_data()
+  end
+
+  def initialize(raw_data)
+    @raw_data = raw_data
+    @href_regex = 'beer_details'
+  end
+
+  def parse_data()
+    data = []
+
+    @raw_data.each do |result|
+      if(result[:href] && result[:href].match(@href_regex))
+        data << result.inner_text
       end
     end
 
-    parsed_result
+    data
   end
 end
