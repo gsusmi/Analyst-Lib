@@ -12,4 +12,6 @@ Gem::Specification.new do |s|
   s.description = "Blah de blah"
 
   s.files = Dir["{lib}/**/*"] + ["README.md"]
+
+  s.add_dependency "nokogiri"
 end
