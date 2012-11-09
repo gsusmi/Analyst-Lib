@@ -2,18 +2,17 @@ require 'nokogiri'
 require 'open-uri'
 
 class AnalystLib
-  def self.process_url(url)
-    result = Scraper.scrape_url(url)
-    Parser.parse(result)
+  def self.fetch_list(url)
+    Builder.build_list(url)
   end
 
   def self.fetch_metadata(name)
-    uri = URI.escape("http://beeradvocate.com/search?qt=beer&q=" + name.to_s)
-    scraper = Scraper.new(uri)
-    scraper.regex = "#baContent a"
-    result = scraper.scrape()
+    Builder.build_metadata(name)
   end
 end
 
 require 'analyst-lib/scraper'
 require 'analyst-lib/parser'
+require 'analyst-lib/builder'
+require 'analyst-lib/metadata'
+require 'analyst-lib/errors'
