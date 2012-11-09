@@ -13,7 +13,7 @@ To get beer metadata:
 AnalystLib.fetch_metadata("Burley Oak Rude Boy")
 
 Example result =>
- <AnalystLib::Metadata:0x78a02404 @rating_score="89", @rating_desc="CANNOT FIND", @abv="9.00", @description="CANNOT FIND"> 
+ AnalystLib::Metadata:0x78a02404 @rating_score="89", @rating_desc="CANNOT FIND", @abv="9.00", @description="CANNOT FIND"
  
 </pre>
 
