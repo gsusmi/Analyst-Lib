@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class AnalystLib
+module AnalystLib
   def self.beer_list(url)
     Builder.build_list(url)
   end
