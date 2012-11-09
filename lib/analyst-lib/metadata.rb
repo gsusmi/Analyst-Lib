@@ -1,6 +1,6 @@
 class AnalystLib::Metadata
   attr_accessor :rating_score, :rating_desc, :abv,
-    :description, :name
+    :description, :name, :type
 
   def initialize(metadata)
     self.metadata = metadata
@@ -12,5 +12,6 @@ class AnalystLib::Metadata
     @rating_desc = "CANNOT FIND"
     @abv = content.search('td')[1].text.match(/\d+(?:[.]\d+)?% ABV/)[0].split('%')[0]
     @description = "CANNOT FIND"
+    @type = content.search("//a[contains(@href, 'beer/style')]").first.children.text
   end
 end
