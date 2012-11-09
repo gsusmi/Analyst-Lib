@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class AnalystLib::Builder
   attr_accessor :raw_data, :href_regex
 
@@ -34,6 +36,8 @@ class AnalystLib::Builder
     beer_link_result = scrape(beer_link)
 
     ::AnalystLib::Metadata.new(beer_link_result)
+  rescue OpenURI::HTTPError
+    raise AnalystLib::MetadataNotFound.new(name)
   end
 
   private
