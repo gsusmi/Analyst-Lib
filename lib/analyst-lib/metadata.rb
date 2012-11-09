@@ -1,11 +1,11 @@
 class AnalystLib::Metadata
   attr_accessor :rating_score, :rating_desc, :abv,
     :description, :name
-  
-  def initialize(metadata)    
+
+  def initialize(metadata)
     self.metadata = metadata
   end
-  
+
   def metadata=(metadata)
     content = metadata.search('tr')
     @rating_score = content.search('//span[@class="BAscore_big"]').first.text

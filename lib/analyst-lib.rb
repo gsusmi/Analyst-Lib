@@ -2,11 +2,11 @@ require 'nokogiri'
 require 'open-uri'
 
 class AnalystLib
-  def self.fetch_list(url)
+  def self.beer_list(url)
     Builder.build_list(url)
   end
 
-  def self.fetch_metadata(name)
+  def self.beer_metadata(name)
     Builder.build_metadata(name)
   end
 end
