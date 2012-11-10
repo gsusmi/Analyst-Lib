@@ -33,7 +33,9 @@ class AnalystLib::Builder
     beer_link = "http://" + first_search_result.children.text.to_s
     beer_link_result = scrape(beer_link)
 
-    ::AnalystLib::Metadata.new(beer_link_result)
+    metadata = ::AnalystLib::Metadata.new(beer_link_result)
+    metadata.external_link = beer_link
+    metadata
   end
 
   private
