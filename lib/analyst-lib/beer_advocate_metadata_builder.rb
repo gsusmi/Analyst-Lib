@@ -29,7 +29,7 @@ module AnalystLib
 
       text = td.text
       if text && text =~ /(\d+(?:[.]\d+)?)% ABV/
-        $1
+        $1.to_f
       end
     end
 
