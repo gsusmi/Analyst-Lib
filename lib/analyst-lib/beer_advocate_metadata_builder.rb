@@ -15,6 +15,7 @@ module AnalystLib
       meta.rating_score = self.rating_score
       meta.abv = self.abv
       meta.type = self.type
+      meta.external_link = self.external_link
       meta
     end
 
@@ -31,6 +32,11 @@ module AnalystLib
       if text && text =~ /(\d+(?:[.]\d+)?)% ABV/
         $1.to_f
       end
+    end
+
+    def external_link
+      tag = content.search("//a[@class='twitter-share-button']")
+      tag && tag.first && tag.first["data-url"]
     end
 
     def type
