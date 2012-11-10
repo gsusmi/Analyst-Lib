@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'analyst-lib/beer_advocate_metadata_builder'
+require 'analyst-lib/beer_name'
 
 class AnalystLib::Builder
   attr_accessor :raw_data, :href_regex
@@ -20,7 +21,8 @@ class AnalystLib::Builder
     list
   end
 
-  def self.build_metadata(name)
+  def self.build_metadata(raw_name)
+    name = AnalystLib::BeerName.canonicalize(raw_name)
     url = SEARCH_URL + name.to_s
     url.gsub!(' ', '+')
     scraped_result = scrape(url)
