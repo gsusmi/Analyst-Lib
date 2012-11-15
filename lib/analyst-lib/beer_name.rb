@@ -1,7 +1,7 @@
 module AnalystLib
   class BeerName
     def self.canonicalize(name)
-      strip_qualifiers(name.tr('()', '')).gsub(/\s+/, ' ').strip
+      strip_qualifiers(name.tr('()/', ' ')).gsub(/\s+/, ' ').strip
     end
 
     def self.strip_qualifiers(name)

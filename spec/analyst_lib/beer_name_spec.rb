@@ -9,5 +9,8 @@ describe AnalystLib::BeerName do
   it 'will strip unhelpful characters from the name' do
     can('Boulder Obovoid Oak-Aged Stout (N2)').should ==
       'Boulder Obovoid Oak-Aged Stout'
+
+    can('Boulevard/Pretty Things Stingo').should ==
+      'Boulevard Pretty Things Stingo'
   end
 end

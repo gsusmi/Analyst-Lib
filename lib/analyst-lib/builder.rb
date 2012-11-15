@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'analyst-lib/beer_advocate_metadata_builder'
 require 'analyst-lib/beer_name'
+require 'analyst-lib/beer_advocate_search'
 
 class AnalystLib::Builder
   attr_accessor :raw_data, :href_regex
@@ -23,21 +24,11 @@ class AnalystLib::Builder
 
   def self.build_metadata(raw_name)
     name = AnalystLib::BeerName.canonicalize(raw_name)
-    url = SEARCH_URL + name.to_s
-    url.gsub!(' ', '+')
-    scraped_result = scrape(url)
 
-    parsed_result = parse(scraped_result, "cite")
+    search_result = AnalystLib::BeerAdvocateSearch.search(name)
+    raise AnalystLib::MetadataNotFound.new(name) unless search_result
 
-    first_search_result = parsed_result.first
-
-    raise AnalystLib::MetadataNotFound.new(name) unless (first_search_result &&
-      first_search_result.children &&
-      first_search_result.children.text.match('beeradvocate'))
-
-    beer_link = "http://" + first_search_result.children.text.to_s
-    beer_link_result = scrape(beer_link)
-
+    beer_link_result = scrape(search_result.http_url)
     AnalystLib::BeerAdvocateMetadataBuilder.build(beer_link_result)
   rescue OpenURI::HTTPError
     raise AnalystLib::MetadataNotFound.new(name)
