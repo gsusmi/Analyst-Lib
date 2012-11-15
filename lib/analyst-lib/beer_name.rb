@@ -1,6 +1,9 @@
+require 'analyst-lib/text_encoding'
+
 module AnalystLib
   class BeerName
     def self.canonicalize(name)
+      name = TextEncoding.encode(name)
       strip_qualifiers(name.tr('()/', ' ')).gsub(/\s+/, ' ').strip
     end
 

@@ -20,7 +20,7 @@ module AnalystLib
     # A numeric score for the result increasing by the number of terms
     # in the result that match terms in the search
     def relevance_score(result)
-      @term_keys.find_all { |key| result.title =~ /\b#{key}\b/i }.size
+      @term_keys.find_all { |key| result.title =~ /\b#{Regexp.quote(key)}\b/i }.size
     end
   end
 end
