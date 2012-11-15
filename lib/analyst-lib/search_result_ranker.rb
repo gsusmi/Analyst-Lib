@@ -12,7 +12,11 @@ module AnalystLib
 
     def rank
       @results.sort { |a, b|
-        relevance_score(b) <=> relevance_score(a)
+        rel_a = relevance_score(a)
+        rel_b = relevance_score(b)
+        rel_b < rel_a ? -1 :
+          rel_b > rel_a ? 1 :
+            (a.rank <=> b.rank)
       }
     end
 

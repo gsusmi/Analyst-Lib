@@ -20,7 +20,9 @@ module AnalystLib
       filtered_results = parsed_results.find_all { |result|
         result.url =~ /beeradvocate.*beer.profile/i
       }
-      SearchResultRanker.rank_results(@beer_name, filtered_results).first
+      best_result =
+        SearchResultRanker.rank_results(@beer_name, filtered_results).first
+      best_result
 
     rescue OpenURI::HTTPError
       raise AnalystLib::MetadataNotFound.new(@beer_name)

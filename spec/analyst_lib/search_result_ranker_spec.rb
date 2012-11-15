@@ -4,7 +4,7 @@ require 'ostruct'
 
 describe AnalystLib::SearchResultRanker do
   def result(title)
-    OpenStruct.new(title: title)
+    OpenStruct.new(title: title, rank: 0)
   end
 
   it 'will rank results by relevance' do

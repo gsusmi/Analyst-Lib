@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'analyst-lib/beer_advocate_metadata_builder'
+require 'analyst-lib/beer_advocate_metadata_lookup'
 require 'analyst-lib/beer_name'
 require 'analyst-lib/beer_advocate_search'
 
@@ -28,8 +28,7 @@ class AnalystLib::Builder
     search_result = AnalystLib::BeerAdvocateSearch.search(name)
     raise AnalystLib::MetadataNotFound.new(name) unless search_result
 
-    beer_link_result = scrape(search_result.http_url)
-    AnalystLib::BeerAdvocateMetadataBuilder.build(beer_link_result)
+    AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
   rescue OpenURI::HTTPError
     raise AnalystLib::MetadataNotFound.new(name)
   end
