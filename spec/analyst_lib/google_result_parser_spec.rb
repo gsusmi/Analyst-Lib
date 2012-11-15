@@ -9,8 +9,16 @@ describe AnalystLib::GoogleResultParser do
     AnalystLib::GoogleResultParser.parse(dom)
   end
 
+  def doc(name)
+    Nokogiri::HTML(File.read(name))
+  end
+
   let (:html) {
-    Nokogiri::HTML(File.read(SUPPORT_FILE))
+    doc(SUPPORT_FILE)
+  }
+
+  let (:accented_html) {
+    doc('spec/support/ayinger-brau-weisse.html')
   }
 
   it 'will parse HTML into search results' do
@@ -22,5 +30,10 @@ describe AnalystLib::GoogleResultParser do
 
     results[1].title.should == 'Hop Dog Harvest Pale Ale - Laughing Dog Brewing - Ponderay, ID ...'
     results[1].url.should == 'beeradvocate.com/beer/profile/12985/39122'
+  end
+
+  it 'will search for accented characters' do
+    results = parse(accented_html)
+    results.size.should == 10
   end
 end

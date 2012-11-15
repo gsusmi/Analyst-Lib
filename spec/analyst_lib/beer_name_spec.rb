@@ -12,5 +12,8 @@ describe AnalystLib::BeerName do
 
     can('Boulevard/Pretty Things Stingo').should ==
       'Boulevard Pretty Things Stingo'
+
+    can("Ayinger Br\u00c4u Weisse").should ==
+      "Ayinger Br\u00c4u Weisse"
   end
 end
