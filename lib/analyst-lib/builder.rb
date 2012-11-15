@@ -10,7 +10,7 @@ class AnalystLib::Builder
 
   def self.build_list(url)
     list = {:drafts => [], :bottles => []}
-    scraped_result = scrape(url)
+    scraped_result = scrape(url, 'ISO-8859-1')
 
     draft_parsed_result = parse(scraped_result, "//div[@id='drafts']").search('a')
     bottles_parsed_result = parse(scraped_result, "//div[@id='bottles']").search('a')
@@ -43,8 +43,8 @@ class AnalystLib::Builder
       end
     end
 
-    def self.scrape(url)
-      ::AnalystLib::Scraper.scrape_url(url)
+    def self.scrape(url, content_encoding='UTF-8')
+      ::AnalystLib::Scraper.scrape_url(url, content_encoding)
     end
 
     def self.parse(raw_data, search_tag)
