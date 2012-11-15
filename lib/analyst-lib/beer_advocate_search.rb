@@ -18,11 +18,9 @@ module AnalystLib
       document = Scraper.scrape_url(self.search_url)
       parsed_results = GoogleResultParser.parse(document)
       filtered_results = parsed_results.find_all { |result|
-        result.url =~ /beeradvocate.*beer.profile/i
+        result.url !~ %r{beeradvocate.*beer.profile/\d+$}i
       }
-      best_result =
-        SearchResultRanker.rank_results(@beer_name, filtered_results).first
-      best_result
+      filtered_results.first
 
     rescue OpenURI::HTTPError
       raise AnalystLib::MetadataNotFound.new(@beer_name)
