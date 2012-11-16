@@ -47,6 +47,7 @@ class AnalystLib::Builder
 
       scraped_result = scrape(metadata_map.fetch(name))
       AnalystLib::FriscoMetadataBuilder.build(scraped_result, metadata)
+    rescue KeyError
     end
 
     def self.map_result(result, node_attribute, node_regex)
