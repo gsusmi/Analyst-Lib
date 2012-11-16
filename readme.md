@@ -12,6 +12,8 @@ To get beer metadata:
 <pre>
 AnalystLib.beer_metadata("Burley Oak Rude Boy")
 
+AnalystLib.beer_metadata("Heavy Seas Märzen")
+
 Example result =>
  AnalystLib::Metadata:0x78a02404 @rating_score="89", @rating_desc="CANNOT FIND", @abv="9.00", @description="CANNOT FIND"
  
