@@ -18,7 +18,7 @@ module AnalystLib
       document = Scraper.scrape_url(self.search_url)
       parsed_results = GoogleResultParser.parse(document)
       filtered_results = parsed_results.find_all { |result|
-        result.url !~ %r{beeradvocate.*beer.profile/\d+$}i
+        result.url =~ %r{beeradvocate.*beer.profile/\d+/\d+}i
       }
       filtered_results.first
 
