@@ -1,17 +1,17 @@
 module AnalystLib
   class FriscoMetadataBuilder
-    def self.build(dom, metadata)
-      self.new(dom, metadata).build
+    def self.build(dom)
+      self.new(dom).build
     end
 
-    def initialize(dom, metadata)
+    def initialize(dom)
       @dom = dom
-      @metadata = metadata
     end
 
     def build
-      @metadata.abv = self.abv
-      @metadata
+      meta = AnalystLib::Metadata.new
+      meta.abv = self.abv
+      meta
     end
 
     def abv

@@ -27,18 +27,21 @@ class AnalystLib::Builder
     name = AnalystLib::BeerName.canonicalize(raw_name)
 
     search_result = AnalystLib::BeerAdvocateSearch.search(name)
-    raise AnalystLib::MetadataNotFound.new(name) unless search_result
 
-    metadata = AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
-    merged_metadata = merge_frisco_metadata(name, metadata) unless metadata.abv.nil?
+    beer_advocate_metadata = AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
 
-    merged_metadata || metadata
-  rescue OpenURI::HTTPError
-    raise AnalystLib::MetadataNotFound.new(name)
+    if(beer_advocate_metadata.abv.nil?)
+      frisco_metadata = frisco_metadata(name)
+      beer_advocate_metadata.abv = frisco_metadata.abv
+    end
+
+    beer_advocate_metadata
+  rescue OpenURI::HTTPError => e
+    frisco_metadata(raw_name)
   end
 
   private
-    def self.merge_frisco_metadata(name, metadata)
+    def self.frisco_metadata(name)
       scraped_result = scrape(FRISCO_METADATA_URL)
       parsed_scraped_result = parse(scraped_result, "//a")
 
@@ -46,7 +49,7 @@ class AnalystLib::Builder
       metadata_url = metadata_map.fetch(name)
 
       scraped_result = scrape(metadata_map.fetch(name))
-      AnalystLib::FriscoMetadataBuilder.build(scraped_result, metadata)
+      AnalystLib::FriscoMetadataBuilder.build(scraped_result)
     rescue KeyError
     end
 
