@@ -31,7 +31,7 @@ class AnalystLib::Builder
     beer_advocate_metadata = AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
 
     if(beer_advocate_metadata.abv.nil?)
-      frisco_metadata = frisco_metadata(name)
+      frisco_metadata = frisco_metadata(raw_name)
       beer_advocate_metadata.abv = frisco_metadata.abv
     end
 
