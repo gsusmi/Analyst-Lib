@@ -28,14 +28,20 @@ class AnalystLib::Builder
 
     search_result = AnalystLib::BeerAdvocateSearch.search(name)
 
-    beer_advocate_metadata = AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
+    if search_result.nil?
+      metadata = frisco_metadata(raw_name)
+    else
+      beer_advocate_metadata = AnalystLib::BeerAdvocateMetadataLookup.lookup_metadata(search_result)
 
-    if(beer_advocate_metadata.abv.nil?)
-      frisco_metadata = frisco_metadata(raw_name)
-      beer_advocate_metadata.abv = frisco_metadata.abv
+      if(beer_advocate_metadata.abv.nil?)
+        frisco_metadata = frisco_metadata(raw_name)
+        beer_advocate_metadata.abv = frisco_metadata.abv
+      end
+
+      metadata = metadata
     end
 
-    beer_advocate_metadata
+    metadata
   rescue OpenURI::HTTPError => e
     frisco_metadata(raw_name)
   end
