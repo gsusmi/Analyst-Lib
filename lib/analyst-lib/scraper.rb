@@ -4,7 +4,6 @@ class AnalystLib::Scraper
   def self.scrape_url(url, content_encoding=nil)
     text = open(url).read()
     text = text.force_encoding(content_encoding) if content_encoding
-    STDERR.puts("Scrape text: #{text}")
     Nokogiri::HTML(AnalystLib::TextEncoding.encode(text))
   end
 end
