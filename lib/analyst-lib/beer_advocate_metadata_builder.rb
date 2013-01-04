@@ -12,6 +12,7 @@ module AnalystLib
 
     def build
       meta = AnalystLib::Metadata.new
+      return meta unless self.type && self.abv
       meta.rating_score = self.rating_score
       meta.abv = self.abv
       meta.type = self.type
